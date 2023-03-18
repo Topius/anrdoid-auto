@@ -6,7 +6,7 @@ should_restart=true
 trap 'should_restart=false; echo "Stopping astrominer..."' SIGINT
 
 while $should_restart; do
-  ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r community-pools.mysrv.cloud:10300 -p rpc
+  ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r dero-node.mysrv.cloud:10300 -p rpc
   
   # Check if astrominer exited normally
   exit_status=$?
