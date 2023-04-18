@@ -1,7 +1,7 @@
 import os
 import subprocess
 import time
-from Modules.path import adb_command, SCRCPY_PATH
+from Modules.System import adb_command, SCRCPY_PATH
 
 # # Define the ADB command with the path to the ADB executable
 # adb_command = "E:\\Top\\Android\\platform-tools\\adb.exe"

@@ -2,7 +2,7 @@ import os
 
 import subprocess
 import time
-from path import adb_command, SCRCPY_PATH
+from System import *
 
 # # Define the ADB command with the path to the ADB executable
 # adb_command = "E:\\Top\\Android\\platform-tools\\adb.exe"
@@ -15,47 +15,52 @@ from path import adb_command, SCRCPY_PATH
 # Start scrcpy with USB device selection
 #scrcpy_process = subprocess.Popen([SCRCPY_PATH, "--select-usb"])
 
+conf_openssh()
+
 #Open SSh Config
+# def conf_openssh():
+#     subprocess.run([adb_command, "shell", "input", "text", "sudo"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "nano"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "/etc/ssh/sshd_config"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
+#
+#     print('---------------------')
+#     input("Confirm Port Change,CTRL+X>Y>Enter in Linux, Done ? Yes/no Press Enter")
+#     print('---------------------')
 
-subprocess.run([adb_command, "shell", "input", "text", "sudo"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "nano"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "/etc/ssh/sshd_config"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
-
-print('---------------------')
-input("Confirm Port Change Press Enter")
-print('---------------------')
+start_ssh()
 #Start SSH Service
+# def start_ssh():
+#     subprocess.run([adb_command, "shell", "input", "text", "sudo"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "service"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "ssh"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "start"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
 
-subprocess.run([adb_command, "shell", "input", "text", "sudo"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "service"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "ssh"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "start"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
-
+check_ssh()
 #Check SSH Service
-
-subprocess.run([adb_command, "shell", "input", "text", "sudo"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "service"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "ssh"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "status"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
-
-subprocess.run([adb_command, "shell", "input", "text", "exit"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
+# def check_ssh():
+#     subprocess.run([adb_command, "shell", "input", "text", "sudo"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "service"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "ssh"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "status"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
+#
+#     subprocess.run([adb_command, "shell", "input", "text", "exit"])
+#     subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
