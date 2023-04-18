@@ -11,7 +11,7 @@ Must have
 1) Userland > Ubuntu or Termux installed and !!OPEN!! running
 2) USB Debugging enabled from Developer mode
 
-python based code After running process.py (Leave it for 2-3 mins)
+python based code After running process.py (Leave it for 20-33 mins)
 1) Waits for your input of new user and password and Creates Admin user 
 2) Updates - Upgrades
 3) install wget
