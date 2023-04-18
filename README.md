@@ -18,7 +18,7 @@ python based code After running process.py (Leave it for 20-33 mins)
 4) install nano
 5) install open Ssh
 6) prompt for open SSH port change as 22 dont work (remove # from prompt and modify port)
-7) installs Astrominer with auto.sh file in astrominer folder(where you need to change to your address) modifies privilages and makes it executable   (Also Pay attention In update.py
+7) installs Astrominer with auto.sh file in astrominer folder(where you need to change to your address) modifies privilages and makes it executable  
 8) Runs (can only be stopped with CTRL+C or if Phone restarts, Else it will restart all the time and try to connect)
 
 After installing do not forget to modify auto.sh with your address and that will be your starting parameter with ./auto.sh
