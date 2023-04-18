@@ -8,7 +8,7 @@ MUST CHANGE:
 you can do it in terminal after installation with nano auto.sh  and edit the address line do CTRL+X press Y press enter to save.
 
 Must have
-1) Userland > Ubuntu or Termux installed and Open running
+1) Userland > Ubuntu or Termux installed and !!OPEN!! running
 2) USB Debugging enabled from Developer mode
 
 python based code After running process.py (Leave it for 2-3 mins)
