@@ -2,7 +2,7 @@ import os
 
 import subprocess
 import time
-from path import adb_command, SCRCPY_PATH
+from System import *
 
 # Define the ADB command with the path to the ADB executable
 # adb_command = "E:\\Top\\Android\\platform-tools\\adb.exe"
@@ -15,18 +15,19 @@ from path import adb_command, SCRCPY_PATH
 # Start scrcpy with USB device selection
 #scrcpy_process = subprocess.Popen([SCRCPY_PATH, "--select-usb"])
 
+install_nano()
 
-subprocess.run([adb_command, "shell", "input", "text", "sudo"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "apt"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "install"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
-
-subprocess.run([adb_command, "shell", "input", "text", "nano"])
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
-time.sleep(10)
-subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
-time.sleep(20)
+    # subprocess.run([adb_command, "shell", "input", "text", "sudo"])
+    # subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+    #
+    # subprocess.run([adb_command, "shell", "input", "text", "apt"])
+    # subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+    #
+    # subprocess.run([adb_command, "shell", "input", "text", "install"])
+    # subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_SPACE"])
+    #
+    # subprocess.run([adb_command, "shell", "input", "text", "nano"])
+    # subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
+    # time.sleep(10)
+    # subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
+    # time.sleep(20)

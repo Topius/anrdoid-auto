@@ -10,5 +10,7 @@ testcommand = ()
 
 
 # Start scrcpy with USB device selection
-scrcpy_process()
-input_enter()
+scrapy_tcpip()
+
+    # scrcpy_process = subprocess.Popen([SCRCPY_PATH,"--tcpip"])
+    # subprocess.run([adb_command, "shell", "input", "keyevent", "KEYCODE_ENTER"])
