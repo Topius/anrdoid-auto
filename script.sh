@@ -1,12 +1,12 @@
 #!/bin/bash
 
-should_restart=true
 is_running=false
+pid=""
 
 # Set up signal handler for SIGINT (CTRL+C)
-trap 'should_restart=false; echo "Stopping astrominer..."; kill %1' SIGINT
+trap 'echo "Stopping astrominer..."; kill $pid' SIGINT
 
-while $should_restart; do
+while true; do
   # Download the file from Github
   contents=$(curl -sSL "https://raw.githubusercontent.com/Topius/anrdoid-auto/main/command.txt")
 
@@ -15,26 +15,26 @@ while $should_restart; do
 
   # Check the contents of the file and run the appropriate script
   if [[ $contents == "Solo" ]]; then
-    # If the "Solo" command is received, stop the "auto.sh" script if it's running
-    if $is_running; then
-      echo "Stopping auto.sh..."
-      kill %2
+    if [[ $is_running == true ]]; then
+      echo "Stopping zolo.sh..."
+      kill $pid
       is_running=false
     fi
     
-    echo "Starting solo.sh..."
+    echo "Starting zolo.sh..."
     ./zolo.sh &
+    pid=$!
     is_running=true
   elif [[ $contents == "Auto" ]]; then
-    # If the "Auto" command is received, stop the "solo.sh" script if it's running
-    if $is_running; then
-      echo "Stopping solo.sh..."
-      kill %1
+    if [[ $is_running == true ]]; then
+      echo "Stopping xauto.sh..."
+      kill $pid
       is_running=false
     fi
     
     echo "Starting xauto.sh..."
     ./xauto.sh &
+    pid=$!
     is_running=true
   fi
 
