@@ -1,35 +1,43 @@
 #!/bin/bash
 
+should_restart=true
+is_running=false
+
 # Set up signal handler for SIGINT (CTRL+C)
-trap 'echo "Stopping astrominer..."; kill $(pgrep astrominer); exit 0' SIGINT
+trap 'should_restart=false; echo "Stopping astrominer..."; kill %1' SIGINT
 
-# Start with an empty command
-command=""
-
-while true; do
+while $should_restart; do
   # Download the file from Github
   contents=$(curl -sSL "https://raw.githubusercontent.com/Topius/anrdoid-auto/main/command.txt")
 
-  # Check if the contents of the file has changed
-  if [[ "$contents" != "$command" ]]; then
-    # Stop the previous astrominer process if it's running
-    if pgrep astrominer; then
-      echo "Stopping astrominer..."
-      kill $(pgrep astrominer)
-    fi
+  echo "Current contents: $contents"
+  echo "Is running: $is_running"
 
-    # Start the new astrominer process with the new command
-    if [[ "$contents" == "Solo" ]]; then
-      echo "Starting zolo.sh..."
-      command="Solo"
-      ./zolo.sh &
-    elif [[ "$contents" == "Auto" ]]; then
-      echo "Starting xauto.sh..."
-      command="Auto"
-      ./xauto.sh &
+  # Check the contents of the file and run the appropriate script
+  if [[ $contents == "Solo" ]]; then
+    # If the "Solo" command is received, stop the "auto.sh" script if it's running
+    if $is_running; then
+      echo "Stopping auto.sh..."
+      kill %2
+      is_running=false
     fi
+    
+    echo "Starting solo.sh..."
+    ./zolo.sh &
+    is_running=true
+  elif [[ $contents == "Auto" ]]; then
+    # If the "Auto" command is received, stop the "solo.sh" script if it's running
+    if $is_running; then
+      echo "Stopping solo.sh..."
+      kill %1
+      is_running=false
+    fi
+    
+    echo "Starting xauto.sh..."
+    ./xauto.sh &
+    is_running=true
   fi
 
-  # Wait for 5 minutes before checking again
+  # Wait for 1 minute before checking again
   sleep 60
 done
