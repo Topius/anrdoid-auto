@@ -1,36 +1,38 @@
 #!/bin/bash
 
-# URL of the file on Github
-url="https://raw.githubusercontent.com/Topius/anrdoid-auto/main/command.txt"
+should_restart=true
+is_running=false
 
-# Variable to store the currently running script
-running_script=""
+# Set up signal handler for SIGINT (CTRL+C)
+trap 'should_restart=false; echo "Stopping astrominer..."; kill %1' SIGINT
 
-# Function to stop the currently running script
-stop_running_script() {
-  if [[ "$running_script" == "solo" ]]; then
-    # Send SIGINT signal to stop the solo.sh script
-    pkill -SIGINT solo.sh
-  elif [[ "$running_script" == "auto" ]]; then
-    # Send SIGINT signal to stop the auto.sh script
-    pkill -SIGINT auto.sh
-  fi
-}
-
-# Loop indefinitely
-while true; do
+while $should_restart; do
   # Download the file from Github
-  contents=$(curl -sSL $url)
+  contents=$(curl -sSL "https://raw.githubusercontent.com/Topius/anrdoid-auto/main/command.txt")
 
   # Check the contents of the file and run the appropriate script
   if [[ $contents == "Solo" ]]; then
-    stop_running_script
-    running_script="solo"
+    # If the "Solo" command is received, stop the "auto.sh" script if it's running
+    if $is_running; then
+      echo "Stopping auto.sh..."
+      kill %2
+      is_running=false
+    fi
+    
+    echo "Starting solo.sh..."
     ./solo.sh &
+    is_running=true
   elif [[ $contents == "Auto" ]]; then
-    stop_running_script
-    running_script="auto"
+    # If the "Auto" command is received, stop the "solo.sh" script if it's running
+    if $is_running; then
+      echo "Stopping solo.sh..."
+      kill %1
+      is_running=false
+    fi
+    
+    echo "Starting auto.sh..."
     ./auto.sh &
+    is_running=true
   fi
 
   # Wait for 5 minutes before checking again
