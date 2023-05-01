@@ -4,7 +4,7 @@ should_restart=true
 is_running=false
 
 # Set up signal handler for SIGINT (CTRL+C)
-trap 'should_restart=false; echo "Stopping astrominer..."; kill %1' SIGINT
+trap 'should_restart=false; echo "Stopping astrominer..."; kill %1 %2' SIGINT
 
 while $should_restart; do
   # Download the file from Github
@@ -38,3 +38,5 @@ while $should_restart; do
   # Wait for 5 minutes before checking again
   sleep 300
 done
+
+sleep 5
