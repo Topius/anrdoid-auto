@@ -1,9 +1,10 @@
 #!/bin/bash
 
 should_restart=true
+is_running=true
 
-# Set up signal handler for SIGINT (CTRL+C)
-trap 'should_restart=false; echo "Stopping astrominer..."' SIGINT
+# Set up signal handlers for SIGINT (CTRL+C) and SIGTERM
+trap 'should_restart=false; echo "Stopping astrominer..."; kill %1' SIGINT SIGTERM
 
 while $should_restart; do
   ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r 192.168.5.104:10100 -p rpc
@@ -22,3 +23,6 @@ while $should_restart; do
     fi
   fi
 done
+
+
+
