@@ -13,32 +13,38 @@ while $should_restart; do
   echo "Current contents: $contents"
   echo "Is running: $is_running"
 
-  # Check the contents of the file and run the appropriate command
+  # Check the contents of the file and run the appropriate script
   if [[ $contents == "Solo" ]]; then
-    # If the "Solo" command is received, stop the "Auto" command if it's running
-    if $is_running && [[ $prev_command != "Solo" ]]; then
+    if [[ $prev_command != "Solo" ]]; then
+      # If the "Solo" command is received and the previous command was not "Solo",
+      # stop the running instance of astrominer and start a new one with the "Solo" command
       echo "Stopping astrominer..."
-      pid=$(pidof astrominer)
-      kill "$pid"
-      is_running=false
+      if $is_running; then
+        kill "$pid"
+        is_running=false
+      fi
+      
+      echo "Starting astrominer in Solo mode..."
+      ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r 192.168.5.104:10100 -p rpc &
+      pid=$!
+      is_running=true
     fi
-
-    echo "Starting astrominer in Solo mode..."
-    ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r 192.168.5.104:10100 -p rpc &
-    is_running=true
     prev_command="Solo"
   elif [[ $contents == "Auto" ]]; then
-    # If the "Auto" command is received, stop the "Solo" command if it's running
-    if $is_running && [[ $prev_command != "Auto" ]]; then
+    if [[ $prev_command != "Auto" ]]; then
+      # If the "Auto" command is received and the previous command was not "Auto",
+      # stop the running instance of astrominer and start a new one with the "Auto" command
       echo "Stopping astrominer..."
-      pid=$(pidof astrominer)
-      kill "$pid"
-      is_running=false
+      if $is_running; then
+        kill "$pid"
+        is_running=false
+      fi
+      
+      echo "Starting astrominer in Auto mode..."
+      ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r dero-node.mysrv.cloud:10300 -p rpc &
+      pid=$!
+      is_running=true
     fi
-    
-    echo "Starting astrominer in Auto mode..."
-    ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r dero-node.mysrv.cloud:10300 -p rpc &
-    is_running=true
     prev_command="Auto"
   fi
 
