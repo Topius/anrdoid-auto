@@ -3,20 +3,19 @@
 # URL of the file on Github
 url="https://raw.githubusercontent.com/Topius/anrdoid-auto/main/command.txt"
 
-# Variable to keep track of the current process
-current_process="none"
+# Variable to store the currently running script
+running_script=""
 
-# Function to stop the current process
-function stop_current_process {
-  if [ "$current_process" != "none" ]; then
-    echo "Stopping $current_process..."
-    killall $current_process
-    current_process="none"
+# Function to stop the currently running script
+stop_running_script() {
+  if [[ "$running_script" == "solo" ]]; then
+    # Send SIGINT signal to stop the solo.sh script
+    pkill -SIGINT solo.sh
+  elif [[ "$running_script" == "auto" ]]; then
+    # Send SIGINT signal to stop the auto.sh script
+    pkill -SIGINT auto.sh
   fi
 }
-
-# Set up signal handler for SIGINT (CTRL+C)
-trap 'stop_current_process; exit 0' SIGINT
 
 # Loop indefinitely
 while true; do
@@ -25,29 +24,13 @@ while true; do
 
   # Check the contents of the file and run the appropriate script
   if [[ $contents == "Solo" ]]; then
-    # Stop the current process if it's not the solo script
-    if [ "$current_process" != "solo.sh" ]; then
-      stop_current_process
-    fi
-
-    # Start the solo script if it's not already running
-    if [ "$current_process" != "solo.sh" ]; then
-      echo "Starting solo.sh..."
-      ./solo.sh &
-      current_process="solo.sh"
-    fi
+    stop_running_script
+    running_script="solo"
+    ./solo.sh &
   elif [[ $contents == "Auto" ]]; then
-    # Stop the current process if it's not the auto script
-    if [ "$current_process" != "auto.sh" ]; then
-      stop_current_process
-    fi
-
-    # Start the auto script if it's not already running
-    if [ "$current_process" != "auto.sh" ]; then
-      echo "Starting auto.sh..."
-      ./auto.sh &
-      current_process="auto.sh"
-    fi
+    stop_running_script
+    running_script="auto"
+    ./auto.sh &
   fi
 
   # Wait for 5 minutes before checking again
