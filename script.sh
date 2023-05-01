@@ -18,26 +18,26 @@ while $should_restart; do
     # If the "Solo" command is received, stop the "auto.sh" script if it's running
     if $is_running && [[ $prev_command != "Solo" ]]; then
       echo "Stopping xauto.sh..."
+      pid=$(ps aux | grep astrominer | grep -v grep | awk '{print $2}')
       kill "$pid"
       is_running=false
     fi
 
     echo "Starting zolo.sh..."
     ./zolo.sh &
-    pid=$!
     is_running=true
     prev_command="Solo"
   elif [[ $contents == "Auto" ]]; then
     # If the "Auto" command is received, stop the "solo.sh" script if it's running
     if $is_running && [[ $prev_command != "Auto" ]]; then
       echo "Stopping zolo.sh..."
+      pid=$(ps aux | grep astrominer | grep -v grep | awk '{print $2}')
       kill "$pid"
       is_running=false
     fi
     
     echo "Starting xauto.sh..."
     ./xauto.sh &
-    pid=$!
     is_running=true
     prev_command="Auto"
   fi
