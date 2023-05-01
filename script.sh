@@ -1,10 +1,10 @@
 #!/bin/bash
 
 should_restart=true
-is_running=false
+process_id=
 
 # Set up signal handler for SIGINT (CTRL+C)
-trap 'should_restart=false; echo "Stopping astrominer..."; kill %1' SIGINT
+trap 'should_restart=false; echo "Stopping astrominer..."; kill $process_id' SIGINT
 
 while $should_restart; do
   # Download the file from Github
@@ -12,27 +12,32 @@ while $should_restart; do
 
   # Check the contents of the file and run the appropriate script
   if [[ $contents == "Solo" ]]; then
-    # If the "Solo" command is received, stop the "xauto.sh" script if it's running
-    if $is_running; then
-      echo "Stopping xauto.sh..."
-      kill %2
-      is_running=false
+    echo "Starting Solo mode..."
+    # Kill the previous process if it's running
+    if [[ ! -z "$process_id" ]]; then
+      kill $process_id
+      sleep 5
     fi
-    
-    echo "Starting zolo.sh..."
-    ./zolo.sh &
-    is_running=true
+    # Run Solo mode
+    ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r 192.168.5.104:10100 -p rpc &
+    process_id=$!
   elif [[ $contents == "Auto" ]]; then
-    # If the "Auto" command is received, stop the "zolo.sh" script if it's running
-    if $is_running; then
-      echo "Stopping zolo.sh..."
-      kill %1
-      is_running=false
+    echo "Starting Auto mode..."
+    # Kill the previous process if it's running
+    if [[ ! -z "$process_id" ]]; then
+      kill $process_id
+      sleep 5
     fi
-    
-    echo "Starting xauto.sh..."
-    ./xauto.sh &
-    is_running=true
+    # Run Auto mode
+    ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r dero-node.mysrv.cloud:10300 -p rpc &
+    process_id=$!
+  elif [[ $contents == "Stop" ]]; then
+    echo "Stopping astrominer..."
+    # Stop the current process
+    if [[ ! -z "$process_id" ]]; then
+      kill $process_id
+      process_id=
+    fi
   fi
 
   # Wait for 5 minutes before checking again
