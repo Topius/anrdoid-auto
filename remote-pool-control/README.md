@@ -1,6 +1,6 @@
 What is this for?
 
-Miner every minute Checks for file content on Github in my case command.txt
+Miner every minute program Checks for file content on Github in my case command.txt
 
 Auto - if in command.txt it reads Auto then All miners withing 5 minutes(github update delay) will follow command and start mining on pool
 Solo - if in command.txt it reads Solo then All miners withing 5 minutes(github update delay) will follow command and start mining on your node
