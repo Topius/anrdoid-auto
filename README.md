@@ -26,6 +26,8 @@ After installing do not forget to modify auto.sh with your address and that will
 I am not a perfect coder but this works :D
 -----------------------------------------------------
 
+
+[MOVED TO remote-pool-control folder]
 !!Bonus!! in Script.sh if you have several phones you can link to a file to a Github in my case Command.txt, Program will check every 1 minute(works in 3-5m)
 If in command.txt is written Auto it will mine on Pool, 
 If i type in command.txt Solo it will mine on node locally solo.
