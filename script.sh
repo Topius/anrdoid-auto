@@ -10,7 +10,7 @@ trap 'should_restart=false; echo "Stopping astrominer..."; pkill astrominer' SIG
 
 while $should_restart; do
   # Download the file from Github
-  contents=$(curl -sSL -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/Topius/anrdoid-auto/main/remote-pool-control/command.txt")
+  contents=$(curl -sSL -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/Topius/anrdoid-auto/main/command.txt")
   echo "Current contents: $contents"
   echo "Is running: $is_running"
 
