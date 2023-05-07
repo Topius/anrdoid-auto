@@ -6,7 +6,7 @@ pid=""
 prev_command=""
 
 # Set up signal handler for SIGINT (CTRL+C)
-trap 'should_restart=false; echo "Stopping astrominer..."; kill "$pid"' SIGINT
+trap 'should_restart=false; echo "Stopping astrominer..."; pkill astrominer' SIGINT
 
 while $should_restart; do
   # Download the file from Github
@@ -26,10 +26,8 @@ while $should_restart; do
     # If the command has changed, stop the running instance of astrominer
     # and start a new one with the new command
     echo "Stopping astrominer..."
-    if $is_running; then
-      kill "$pid"
-      is_running=false
-    fi
+    pkill astrominer
+    is_running=false
 
     if [[ "$command" == "Solo" ]]; then
       echo "Starting astrominer in Solo mode..."
@@ -39,7 +37,7 @@ while $should_restart; do
       ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r dero-node.mysrv.cloud:10300 -p rpc &
     fi
 
-    pid=$!
+    pid=$(pgrep astrominer)
     is_running=true
     prev_command="$command"
   fi
