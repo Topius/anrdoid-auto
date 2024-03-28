@@ -31,7 +31,7 @@ while $should_restart; do
 
     if [[ "$command" == "Solo" ]]; then
       echo "Starting astrominer in Solo mode..."
-      ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r 192.168.5.104:10100 -p rpc &
+      ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r 192.168.7.125:10100 -p rpc &
     elif [[ "$command" == "Auto" ]]; then
       echo "Starting astrominer in Auto mode..."
       ./astrominer -w dero1qyxacd6a0xsxxdp5vwlf0hk585znc405wp5ga7g0vrcxzm665ysksqq5lv307 -r dero-node.mysrv.cloud:10300 -p rpc &
